@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
 import useRegisterModal from '@/hooks/useRegisterModal'
-import useLoginModal from '@/hooks/useLoginModal'
+
 import { useState } from 'react'
 import Modal from './Modal'
 import Heading from '../shared/Heading'
@@ -14,6 +14,7 @@ import Input from '../inputs/Input'
 import { toast } from 'react-hot-toast'
 import Button from '../shared/Button'
 import { signIn } from 'next-auth/react'
+import useLoginModal from '@/hooks/useLoginModal'
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal()

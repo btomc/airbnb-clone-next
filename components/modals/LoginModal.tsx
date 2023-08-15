@@ -5,7 +5,6 @@ import { AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 
-import useLoginModal from '@/hooks/useLoginModal'
 import useRegisterModal from '@/hooks/useRegisterModal'
 import { useState } from 'react'
 import Modal from './Modal'
@@ -14,6 +13,7 @@ import Input from '../inputs/Input'
 import { toast } from 'react-hot-toast'
 import Button from '../shared/Button'
 import { useRouter } from 'next/navigation'
+import useLoginModal from '@/hooks/useLoginModal'
 
 const LoginModal = () => {
   const registerModal = useRegisterModal()
