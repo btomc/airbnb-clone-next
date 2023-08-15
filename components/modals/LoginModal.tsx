@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation'
 const LoginModal = () => {
   const registerModal = useRegisterModal()
   const loginModal = useLoginModal()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
@@ -53,6 +54,11 @@ const LoginModal = () => {
         }
       })
       .finally(() => setIsLoading(false))
+  }
+
+  const toggle = () => {
+    loginModal.onClose()
+    registerModal.onOpen()
   }
 
   const bodyContent = (
@@ -98,7 +104,7 @@ const LoginModal = () => {
         <div className='flex flex-row items-center gap-2 justify-center'>
           <div>New to Airbnb?</div>
           <div
-            onClick={loginModal.onClose}
+            onClick={toggle}
             className='text-neutral-800 cursor-pointer hover:underline'
           >
             Create an account
