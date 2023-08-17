@@ -1,7 +1,7 @@
 'use client'
 
 import { differenceInCalendarDays, eachDayOfInterval } from 'date-fns'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { categories } from '@/constants'
@@ -12,6 +12,8 @@ import ListingInfo from './ListingInfo'
 import useLoginModal from '@/hooks/useLoginModal'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import ListingReservation from './ListingReservation'
+import { Range } from 'react-date-range'
 
 const initialDateRange = {
   startDate: new Date(),
@@ -52,9 +54,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   const [isLoading, setIsLoading] = useState(false)
   const [totalPrice, setTotalPrice] = useState(listing.price)
-  const [dateRange, setDateRange] = useState(initialDateRange)
+  const [dateRange, setDateRange] = useState<Range>(initialDateRange)
 
-  const onCreateReservation = () => {
+  const onCreateReservation = useCallback(() => {
     if (!currentUser) {
       return loginModal.onOpen()
     }
@@ -80,7 +82,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .finally(() => {
         setIsLoading(false)
       })
-  }
+  }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal])
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -122,6 +124,17 @@ const ListingClient: React.FC<ListingClientProps> = ({
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
             />
+            <div className='order-first mb-10 md:order-last md:col-span-3'>
+              <ListingReservation
+                price={listing.price}
+                totalPrice={totalPrice}
+                onChangeDate={(value) => setDateRange(value)}
+                dateRange={dateRange}
+                onSubmit={onCreateReservation}
+                disabled={isLoading}
+                disabledDates={disabledDates}
+              />
+            </div>
           </div>
         </div>
       </div>
