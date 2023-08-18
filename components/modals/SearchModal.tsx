@@ -10,6 +10,7 @@ import useSearchModal from '@/hooks/useSearchModal'
 import CountrySelect, { CountrySelectValue } from '../inputs/CountrySelect'
 import Modal from './Modal'
 import Heading from '../shared/Heading'
+import Calendar from '../inputs/Calendar'
 
 enum STEPS {
   LOCATION = 0,
@@ -131,13 +132,30 @@ const SearchModal = () => {
     </div>
   )
 
+  if (step === STEPS.DATE) {
+    bodyContent = (
+      <div className='flex flex-col gap-8'>
+        <Heading
+          title='When do you plan to go?'
+          subtitle='Make sure everyone is free!'
+        />
+        <Calendar
+          value={dateRange}
+          onChange={(value) => setDateRange(value.selection)}
+        />
+      </div>
+    )
+  }
+
   return (
     <Modal
       isOpen={searchModal.isOpen}
       onClose={searchModal.onClose}
-      onSubmit={searchModal.onOpen}
+      onSubmit={onSubmit}
       title='Filters'
-      actionLabel='Search'
+      actionLabel={actionLabel}
+      secondaryActionLabel={secondaryActionLabel}
+      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       body={bodyContent}
     />
   )
