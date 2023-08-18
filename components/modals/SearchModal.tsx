@@ -11,6 +11,7 @@ import CountrySelect, { CountrySelectValue } from '../inputs/CountrySelect'
 import Modal from './Modal'
 import Heading from '../shared/Heading'
 import Calendar from '../inputs/Calendar'
+import Counter from '../inputs/Counter'
 
 enum STEPS {
   LOCATION = 0,
@@ -142,6 +143,32 @@ const SearchModal = () => {
         <Calendar
           value={dateRange}
           onChange={(value) => setDateRange(value.selection)}
+        />
+      </div>
+    )
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className='flex flex-col gap-8'>
+        <Heading title='More information' subtitle='Find your perfect place!' />
+        <Counter
+          title='Guests'
+          subtitle='How many guests are coming?'
+          value={guestCount}
+          onChange={(value) => setGuestCount(value)}
+        />
+        <Counter
+          title='Rooms'
+          subtitle='How many rooms do you need?'
+          value={roomCount}
+          onChange={(value) => setRoomCount(value)}
+        />
+        <Counter
+          title='Bathrooms'
+          subtitle='How many bathrooms do you need?'
+          value={bathroomCount}
+          onChange={(value) => setBathroomCount(value)}
         />
       </div>
     )
